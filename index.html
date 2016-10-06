@@ -18,29 +18,19 @@
       left:0;
     }
 
-    #yin{
-      transform: rotate(180deg);
-    }
-
     #shapeSelectors{
       display: inline-block;
       vertical-align: top;
     }
 
     body{
-      background-color: blue;
+      background-color: yellowgreen;
     }
   </style>
 </head>
 <body>
-  <div id="pit">
-    <img class='shape' data-rotate=0 id='yang' src='/images/yang.png'>
-    <img class='shape' data-rotate=180 id='yin' src='/images/yin.png'>
-  </div>
-  <form id="shapeSelectors">
-    <label><input type='radio' class="shapeSelector" name='shape' value='#yang' checked> yang</label>
-    <label><input type='radio' class="shapeSelector" name='shape' value='#yin'> yin</label>
-  </form>
+  <div id="pit"></div>
+  <form id="shapeSelectors"></form>
   <script src="main.bundle.js"></script>
 </body>
 </html>
