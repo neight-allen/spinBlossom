@@ -55,7 +55,7 @@
 	var selectedShape;
 	var allShapes = Levels[currentLevel].map(function (shape) {
 	  var selectorHTML = `<li data-shape-id="#${ shape.id }" class="shapeSelector">
-	    <img src="/images/${ shape.image }" style="transform: rotate(${ shape.initialRot }deg)">
+	    <img src="../images/${ shape.image }" style="transform: rotate(${ shape.initialRot }deg)">
 	  </li>`;
 	  $("#shapeSelectors").append(selectorHTML);
 	  var $newShape = $(`<img class='shape' data-rotate=${ shape.initialRot } id='${ shape.id }' src='../images/${ shape.image }'>`);
