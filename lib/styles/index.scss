@@ -39,3 +39,41 @@ $selectorSize: 100px;
 body{
   background-color: yellowgreen;
 }
+
+@media (max-width: 600px) {
+  #pit{
+    width: 80%;
+    height: auto;
+    margin:auto;
+    display: block;
+    padding-top: 90%;
+    overflow:hidden;
+    .shape{
+      position: absolute;
+      top:0;
+      left:0;
+      width:100%;
+    }
+  }
+
+  #shapeSelectors {
+    position:relative;
+    display: block;
+    width:100%;
+    padding:0;
+  }
+
+  .shapeSelector {
+    display: inline-block;
+    position: relative;
+    border: 3px solid lightgrey;
+    border-radius: 6px;
+    padding: 1%;
+    margin: 1%;
+    width: 27%;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
