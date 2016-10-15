@@ -58,7 +58,7 @@
 	    <img src="/images/${ shape.image }" style="transform: rotate(${ shape.initialRot }deg)">
 	  </li>`;
 	  $("#shapeSelectors").append(selectorHTML);
-	  var $newShape = $(`<img class='shape' data-rotate=${ shape.initialRot } id='${ shape.id }' src='/images/${ shape.image }'>`);
+	  var $newShape = $(`<img class='shape' data-rotate=${ shape.initialRot } id='${ shape.id }' src='../images/${ shape.image }'>`);
 	  $("#pit").append($newShape);
 	  selectedShape = new Shape($(".shapeSelector:last"));
 	  selectedShape.rotation = shape.initialRot;
