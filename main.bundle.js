@@ -100,7 +100,7 @@
 	  //Tell them they've won if the shapes match
 	  if (!rotationDelta) {
 	    alert("you win!");
-	    location = "/";
+	    location = "../";
 	  }
 	});
 
