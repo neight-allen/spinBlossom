@@ -76,22 +76,22 @@
 
 	var rotateSelected = function (e) {
 	  e.preventDefault();
-	  selectedShape.rotation = initialRot + e.clientY - initialPosition.y;
+	  selectedShape.rotation = initialRot + posFromEvent(e).y - initialPosition.y;
 	};
 
-	$("#shapeSelectors").on("mousedown", ".shapeSelector", function (e) {
+	$("#shapeSelectors").on("mousedown touchstart", ".shapeSelector", function (e) {
 	  e.preventDefault();
 	  selectedShape = new Shape($(this));
 	  console.log(selectedShape.rotation);
-	  initialPosition = { x: e.clientX, y: e.clientY };
+	  initialPosition = posFromEvent(e);
 	  initialRot = selectedShape.rotation;
 	  mouseDown = true;
-	  $(document).on("mousemove", rotateSelected);
+	  $(document).on("mousemove touchmove", rotateSelected);
 	});
 
-	$(document).on("mouseup", function () {
+	$(document).on("mouseup touchend", function () {
 	  mouseDown = false;
-	  $(document).off("mousemove", rotateSelected);
+	  $(document).off("mousemove touchmove", rotateSelected);
 	  selectedShape.rotation = Math.round(selectedShape.rotation / 5) * 5;
 	  var rotationDelta = $(".shape").map(function () {
 	    return $(this).data("rotate");
@@ -107,6 +107,14 @@
 	$(".shapeSelector").on('change', function () {
 	  selectedShape = new Shape($($(this).val()));
 	});
+
+	function posFromEvent(event) {
+	  if (event.type.match(/touch/)) {
+	    return { x: event.touches[0].clientX, y: event.touches[0].clientY };
+	  } else {
+	    return { x: event.clientX, y: event.clientY };
+	  }
+	}
 
 	function xyToDegrees(coords) {
 	  var radians = Math.atan2(coords.y - center.y, coords.x - center.x);
@@ -148,7 +156,7 @@
 
 
 	// module
-	exports.push([module.id, "#pit {\n  position: relative;\n  margin: 10px;\n  height: 462px;\n  width: 462px;\n  display: inline-block;\n  overflow: hidden; }\n  #pit .shape {\n    position: absolute;\n    top: 0;\n    left: 0; }\n\n#shapeSelectors {\n  display: inline-block;\n  vertical-align: top;\n  width: 400px; }\n\n.shapeSelector {\n  float: left;\n  border: 3px solid lightgrey;\n  border-radius: 6px;\n  padding: 10px;\n  list-style: none;\n  margin: 10px;\n  cursor: ns-resize; }\n  .shapeSelector img {\n    width: 100px;\n    height: 100px; }\n\nbody {\n  background-color: yellowgreen; }\n", ""]);
+	exports.push([module.id, "#pit {\n  position: relative;\n  margin: 10px;\n  height: 462px;\n  width: 462px;\n  display: inline-block;\n  overflow: hidden; }\n  #pit .shape {\n    position: absolute;\n    top: 0;\n    left: 0; }\n\n#shapeSelectors {\n  display: inline-block;\n  vertical-align: top;\n  width: 400px; }\n\n.shapeSelector {\n  float: left;\n  border: 3px solid lightgrey;\n  border-radius: 6px;\n  padding: 10px;\n  list-style: none;\n  margin: 10px;\n  cursor: ns-resize; }\n  .shapeSelector img {\n    width: 100px;\n    height: 100px; }\n\nbody {\n  background-color: yellowgreen; }\n\n@media (max-width: 600px) {\n  #pit {\n    width: 80%;\n    height: auto;\n    margin: auto;\n    display: block;\n    padding-top: 90%;\n    overflow: hidden; }\n    #pit .shape {\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%; }\n  #shapeSelectors {\n    position: relative;\n    display: block;\n    width: 100%;\n    padding: 0; }\n  .shapeSelector {\n    display: inline-block;\n    position: relative;\n    border: 3px solid lightgrey;\n    border-radius: 6px;\n    padding: 1%;\n    margin: 1%;\n    width: 27%; }\n    .shapeSelector img {\n      width: 100%;\n      height: auto; } }\n", ""]);
 
 	// exports
 
