@@ -92,12 +92,16 @@
 	$(document).on("mouseup touchend", function () {
 	  mouseDown = false;
 	  selectedShape.screenToRealRotate();
+	  // console.log({
+	  //   real: $(selectedShape.element).data("real-rotate"),
+	  //   screen: $(selectedShape.element).data("screen-rotate")
+	  // });
 	  $(document).off("mousemove touchmove", rotateSelected);
 	  // selectedShape.rotation = Math.round(selectedShape.rotation / 5) * 5;
 	  var rotationDelta = $(".shape").map(function () {
 	    return $(this).data("real-rotate");
 	  }).get().reduce((delta, rotation, index, rotations) => delta + rotations[0] - rotation, 0) % 360;
-	  console.log(rotationDelta);
+	  // console.log(rotationDelta);
 	  //Tell them they've won if the shapes match
 	  if (!rotationDelta) {
 	    alert("you win!");
@@ -12272,11 +12276,12 @@
 	  set: function rotation(newRotation) {
 	    var $myElement = $(this.element);
 	    var oldScreenRotate = $myElement.data("screen-rotate");
+	    var newScreenRotate = Math.round(newRotation / 5) * 5;
 	    $myElement.data("rotate", newRotation);
-	    $myElement.data("screen-rotate", Math.round(newRotation / 5) * 5);
+	    $myElement.data("screen-rotate", newScreenRotate);
 	    if ($myElement.data("screen-rotate") != oldScreenRotate) {
-	      $myElement.css("transform", `rotate(${ newRotation }deg)`);
-	      $(this.selector).find("img").css("transform", `rotate(${ newRotation }deg)`);
+	      $myElement.css("transform", `rotate(${ newScreenRotate }deg)`);
+	      $(this.selector).find("img").css("transform", `rotate(${ newScreenRotate }deg)`);
 	    }
 	  }
 	});
@@ -12287,7 +12292,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = [[{ initialRot: 180, id: "yin", image: "yin.png" }, { initialRot: 0, id: "yang", image: "yang.png" }], [{ initialRot: -5, id: "2a", image: "2a.png" }, { initialRot: 140, id: "2b", image: "2b.png" }, { initialRot: 160, id: "2c", image: "2c.png" }, { initialRot: 245, id: "2d", image: "2d.png" }, { initialRot: 0, id: "2e", image: "2e.png" }, { initialRot: 155, id: "2f", image: "2f.png" }], [{ initialRot: 70, id: "1a", image: "1a.png" }, { initialRot: 0, id: "1b", image: "1b.png" }, { initialRot: -100, id: "1c", image: "1c.png" }]];
+	module.exports = [[{ initialRot: 180, id: "yin", image: "yin.png" }, { initialRot: 0, id: "yang", image: "yang.png" }], [{ initialRot: -5, id: "2a", image: "2a.png" }, { initialRot: 140, id: "2b", image: "2b.png" }, { initialRot: 160, id: "2c", image: "2c.png" }, { initialRot: 245, id: "2d", image: "2d.png" }, { initialRot: 0, id: "2e", image: "2e.png" }, { initialRot: 155, id: "2f", image: "2f.png" }], [{ initialRot: 70, id: "1a", image: "1a.png" }, { initialRot: 0, id: "1b", image: "1b.png" }, { initialRot: -100, id: "1c", image: "1c.png" }], [{ initialRot: -5, id: "2a", image: "3a.png" }, { initialRot: 140, id: "2b", image: "3b.png" }, { initialRot: 160, id: "2c", image: "3c.png" }, { initialRot: 245, id: "2d", image: "3d.png" }, { initialRot: 0, id: "2e", image: "3e.png" }]];
 
 /***/ }
 /******/ ]);
