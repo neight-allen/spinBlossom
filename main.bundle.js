@@ -58,7 +58,7 @@
 	    <img src="../images/${ shape.image }" style="transform: rotate(${ shape.initialRot }deg)">
 	  </li>`;
 	  $("#shapeSelectors").append(selectorHTML);
-	  var $newShape = $(`<img class='shape' data-rotate=${ shape.initialRot } id='${ shape.id }' src='../images/${ shape.image }'>`);
+	  var $newShape = $(`<img class='shape' data-real-rotate=${ shape.initialRot } data-scren-rotate=${ shape.initialRot } id='${ shape.id }' src='../images/${ shape.image }'>`);
 	  $("#pit").append($newShape);
 	  selectedShape = new Shape($(".shapeSelector:last"));
 	  selectedShape.rotation = shape.initialRot;
@@ -91,10 +91,11 @@
 
 	$(document).on("mouseup touchend", function () {
 	  mouseDown = false;
+	  selectedShape.screenToRealRotate();
 	  $(document).off("mousemove touchmove", rotateSelected);
-	  selectedShape.rotation = Math.round(selectedShape.rotation / 5) * 5;
+	  // selectedShape.rotation = Math.round(selectedShape.rotation / 5) * 5;
 	  var rotationDelta = $(".shape").map(function () {
-	    return $(this).data("rotate");
+	    return $(this).data("real-rotate");
 	  }).get().reduce((delta, rotation, index, rotations) => delta + rotations[0] - rotation, 0) % 360;
 	  console.log(rotationDelta);
 	  //Tell them they've won if the shapes match
@@ -12260,14 +12261,23 @@
 	  this.selector = selector;
 	}
 
+	Shape.prototype.screenToRealRotate = function () {
+	  $(this.element).data("real-rotate", $(this.element).data("screen-rotate"));
+	};
+
 	Object.defineProperty(Shape.prototype, "rotation", {
 	  get: function rotation() {
-	    return $(this.element).data("rotate");
+	    return $(this.element).data("real-rotate");
 	  },
 	  set: function rotation(newRotation) {
-	    $(this.element).data("rotate", newRotation);
-	    $(this.element).css("transform", `rotate(${ newRotation }deg)`);
-	    $(this.selector).find("img").css("transform", `rotate(${ newRotation }deg)`);
+	    var $myElement = $(this.element);
+	    var oldScreenRotate = $myElement.data("screen-rotate");
+	    $myElement.data("rotate", newRotation);
+	    $myElement.data("screen-rotate", Math.round(newRotation / 5) * 5);
+	    if ($myElement.data("screen-rotate") != oldScreenRotate) {
+	      $myElement.css("transform", `rotate(${ newRotation }deg)`);
+	      $(this.selector).find("img").css("transform", `rotate(${ newRotation }deg)`);
+	    }
 	  }
 	});
 
